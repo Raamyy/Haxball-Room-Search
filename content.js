@@ -19,53 +19,44 @@ console.log("button clicked");
 roomListShowed = true;
 
 // Add the search textbox
-var gameframe = document.documentElement.getElementsByClassName("gameframe")[0]
+var gameframe = document.documentElement.getElementsByClassName("gameframe")[0];
 var dialog = gameframe.contentDocument.getElementsByClassName("dialog")[0];
 
 var input = document.createElement('input'); 
 input.type = "text"; 
 input.id = "searchRoom";
-input.placeholder = "Enter room name and press [ENTER]";
+input.placeholder = "Enter room name and press [ENTER] - Haxball Search Bar by Raamyy and xenon";
+input.oninput = searchForRoom;
+input.onkeyup = searchForRoom;
 input.onchange = searchForRoom;
-dialog.appendChild(input);
 
-var para = document.createElement("p");
-var node = document.createTextNode("Haxball Search Bar by Raamyy");
-para.style.fontSize = "xx-small";
-para.style.textAlign = "center";
-para.appendChild(node);
-dialog.appendChild(para);
-
+insertPos = dialog.querySelector('h1').nextElementSibling;
+insertPos.parentNode.insertBefore(input, insertPos.nextElementSibling);
 }
 
 // excuted when user press enter to search for a room
-function searchForRoom(){
-var gameframe = document.documentElement.getElementsByClassName("gameframe")[0];
-var dialog = gameframe.contentDocument.getElementsByClassName("dialog")[0];
+function searchForRoom() {
+	var gameframe = document.documentElement.getElementsByClassName("gameframe")[0];
+	var dialog = gameframe.contentDocument.getElementsByClassName("dialog")[0];
+	input = gameframe.contentWindow.document.getElementById('searchRoom');
+    searchRoom = input.value.toLowerCase();
+    var roomTable = dialog.querySelectorAll("[data-hook='list']")[0]
+    var totalNumberOfPlayers = 0;
+    var totalNumberOfRooms = 0;
+    for(room of roomTable.rows) {
+        var roomName = room.querySelectorAll("[data-hook='name']")[0].innerHTML;
+        var roomNumPlayers = room.querySelectorAll("[data-hook='players']")[0].innerHTML.split('/')[0];
+        roomName = roomName.toLowerCase();
 
-var inputs = dialog.getElementsByTagName("input");
-var textbox = inputs[inputs.length-1];
-var searchRoom = textbox.value;
-searchRoom = searchRoom.toLowerCase();
-
-var roomTable = dialog.querySelectorAll("[data-hook='list']")[0]
-
-var totalNumberOfPlayers = 0;
-var totalNumberOfRooms = 0;
-for(room of roomTable.rows){
-    var roomName = room.querySelectorAll("[data-hook='name']")[0].innerHTML;
-    var roomNumPlayers = room.querySelectorAll("[data-hook='players']")[0].innerHTML.split('/')[0];
-    roomName = roomName.toLowerCase();
-
-    if(roomName.includes(searchRoom) == true){
+    if(roomName.includes(searchRoom) == true) {
         room.hidden = false;
         totalNumberOfPlayers += parseInt(roomNumPlayers);
         totalNumberOfRooms++;
-    }
-    else
+        }
+    else { 
         room.hidden = true;
-
-}
+        }
+    }
     var roomsStats = dialog.querySelectorAll("[data-hook='count']")[0];
     roomsStats.innerHTML = totalNumberOfPlayers + "players in "+totalNumberOfRooms+" rooms";
 }
