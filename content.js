@@ -19,7 +19,7 @@ console.log("button clicked");
 roomListShowed = true;
 
 // Add the search textbox
-var gameframe = document.documentElement.getElementsByClassName("gameframe")[0]
+var gameframe = document.documentElement.getElementsByClassName("gameframe")[0];
 var dialog = gameframe.contentDocument.getElementsByClassName("dialog")[0];
 
 var input = document.createElement('input'); 
@@ -36,6 +36,9 @@ insertPos.parentNode.insertBefore(input, insertPos.nextElementSibling);
 
 // excuted when user press enter to search for a room
 function searchForRoom() {
+	var gameframe = document.documentElement.getElementsByClassName("gameframe")[0];
+	var dialog = gameframe.contentDocument.getElementsByClassName("dialog")[0];
+	input = gameframe.contentWindow.document.getElementById('searchRoom');
     searchRoom = input.value.toLowerCase();
     var roomTable = dialog.querySelectorAll("[data-hook='list']")[0]
     var totalNumberOfPlayers = 0;
