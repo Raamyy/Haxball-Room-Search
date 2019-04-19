@@ -1,6 +1,9 @@
 var roomListShowed = false;
 
 window.onload = ()=>{
+    setTimeout(setEvents, 500);
+}
+function setEvents(){
     var el = document.documentElement.getElementsByClassName("gameframe")[0];
     el = el.contentDocument;
     el.onkeydown = enter
@@ -8,7 +11,9 @@ window.onload = ()=>{
     button.onclick = process;
     console.log("start");
 }
-function enter(){
+
+function enter(e){
+    if(e.keyCode == 13) //Enter Key
     if(roomListShowed == false)
     process();
 }
