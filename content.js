@@ -25,8 +25,16 @@ var dialog = gameframe.contentDocument.getElementsByClassName("dialog")[0];
 var input = document.createElement('input'); 
 input.type = "text"; 
 input.id = "searchRoom";
-input.onchange = searchForRoom
-dialog.appendChild(input); 
+input.placeholder = "Enter room name and press [ENTER]";
+input.onchange = searchForRoom;
+dialog.appendChild(input);
+
+var para = document.createElement("p");
+var node = document.createTextNode("Haxball Search Bar by Raamyy");
+para.style.fontSize = "xx-small";
+para.style.textAlign = "center";
+para.appendChild(node);
+dialog.appendChild(para);
 
 }
 
